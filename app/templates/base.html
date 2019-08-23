@@ -1,0 +1,90 @@
+{% load static %}
+{# this is the base file. add header and footer here #}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block pageTitle%} {% endblock %}</title>
+  <script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/sweetalert.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/base.js" %}"></script>
+	
+  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+  
+  <!-- Fixes favicon issue -->
+  <link rel="shortcut icon" href="#" />
+  
+  <script>
+    $(window).ready(function(){
+      let userId = {{userId}}
+      if(userId==0){
+        swal("You don't seem to be logged in!!!", "Please try logging in again.", "error").then(function(){
+          window.location.href = "/";
+        })
+      }
+    })
+  </script>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Code Nicely</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/my_notes/">My Notes</a></li>
+          <li><a href="/shared_notes/">Shared Notes</a></li>
+        </ul>
+  			<form class="navbar-form navbar-left" role="search">
+          {% csrf_token %}
+  				<div class="form-group">
+            {% csrf_token %}
+  					<input type="text" class="form-control" placeholder="Search" id="toSearch">
+  				</div>
+  				<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search" onClick="Search()"></span></button>
+  			</form>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout/">Logout</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="row">
+    <div id="pageContent" class="col-md-offset-2 col-md-8" style="height: 600px !important; overflow-y: scroll; border: 5px solid grey;">
+      {% block pageContent %} {% endblock %}
+    </div>
+  </div>
+  <br/>
+  <div class="modal fade" id="noteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Note</h4>
+        </div>
+        <div class="modal-body">
+          {% csrf_token %}
+          <textarea class="form-control" rows="10" id="newNote"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onClick="SaveNote()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row" align="center">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#noteModal"><span class="glyphicon glyphicon-plus"></span> New Note</button>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+  {% block pageTitle %}Homepage{% endblock %}
+  
+  {% block pageContent %}
+		<br/>
+		<table class="table table-scroll table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Note</th>
+          <th scope="col">Action (Edit / Delete / Read)</th>
+        </tr>
+      </thead>
+			<tbody id="myNotesTBody">
+				{% for note in myNotes %}
+					<td>{{note.n_val|truncatechars:100}}</td>
+					<td>
+						<a href='javascript:EditNote("{{note.n_id}}", "{{note.n_val}}")'>
+							<span class="glyphicon glyphicon-edit"></span>
+						</a>
+						<a href='javascript:DeleteNote("{{note.n_id}}")'>
+							<span class="glyphicon glyphicon-trash"></span>
+						</a>
+						<a href='javascript:ReadNote("{{note.n_val}}")'>
+							<span class="glyphicon glyphicon-open-file"></span>
+						</a>
+					</td>
+				{% endfor %}
+			</tbody>
+		</table>
+		
+		<div class="modal fade" id="myNoteModal" tabindex="-1" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h4 class="modal-title" id="myNoteTitle"></h4>
+						<h5 id="myNoteId" hidden></h5>
+	        </div>
+	        <div class="modal-body">
+	          {% csrf_token %}
+	          <textarea class="form-control" rows="10" id="myNote"></textarea>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	          <button type="button" class="btn btn-primary" id="updateBtn" onClick="UpdateNote()">Update Note</button>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	{% endblock %}
+
+</html>

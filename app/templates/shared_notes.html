@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+  {% block pageTitle %}Homepage{% endblock %}
+  
+  {% block pageContent %}
+		{{userId}}{{userId.u_name}}
+	{% endblock %}
+
+</html>

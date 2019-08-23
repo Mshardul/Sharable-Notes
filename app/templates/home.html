@@ -1,0 +1,56 @@
+{% load static %}
+<head>
+  <title>Startpage</title>
+  <script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/sweetalert.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/base.js" %}"></script>
+	
+  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+  
+  <!-- Fixes favicon issue -->
+  <link rel="shortcut icon" href="#" />
+
+</head>
+
+
+<!------ Include the above in your HEAD tag ---------->
+<br/><br/>
+<div class="container form-container" style="border: 5px solid grey">
+	<div class="row">
+		<div class="col-md-6 login-form-1" style="border-right: 4px solid grey">
+			<h3>New User - Sign Up</h3>
+			<form>
+				{% csrf_token %}
+				<div class="form-group">
+					<input type="text" id="nameReg" class="form-control" placeholder="Name *" />
+				</div>
+				<div class="form-group">
+					<input type="text" id="phoneReg" class="form-control" placeholder="Phone *"/>
+				</div>
+				<div class="form-group">
+					<input type="password" id="passwordReg" class="form-control" placeholder="Password *"/>
+				</div>
+				<div class="form-group">
+					<input type="button" class="btn btn-info form-control" value="Register" onClick="Register()" />
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6 login-form-2">
+			<h3>User Login</h3>
+			<form>
+				{% csrf_token %}
+				<div class="form-group">
+					<input type="text" id="phoneLog" class="form-control" placeholder="Phone *" />
+				</div>
+				<div class="form-group">
+					<input type="password" id="passwordLog" class="form-control" placeholder="Password *" />
+				</div>
+				<div class="form-group">
+					<input type="button" class="btn btn-primary form-control" value="Login" onClick="Login()" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
